@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jenga Bundles</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background: linear-gradient(135deg, #e6f7ff, #f4f9f9);
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(90deg, #008000, #00b894);
+      color: white;
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 1.8rem;
+      font-weight: bold;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    }
+
+    .container {
+      max-width: 650px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+
+    .bundle {
+      background: white;
+      padding: 1.5rem;
+      margin-bottom: 1.2rem;
+      border-radius: 14px;
+      box-shadow: 0 6px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+
+    .bundle:hover {
+      transform: scale(1.02);
+    }
+
+    .bundle h3 {
+      margin: 0.5rem 0;
+      color: #00796b;
+    }
+
+    .bundle p {
+      margin: 0.3rem 0;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 0.8rem;
+      padding: 0.7rem 1.5rem;
+      background: linear-gradient(90deg, #00c853, #64dd17);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: 0.3s ease;
+    }
+
+    .btn:hover {
+      background: linear-gradient(90deg, #009624, #558b2f);
+    }
+
+    /* Popup */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .popup-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 14px;
+      max-width: 420px;
+      text-align: center;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .popup-content h2 {
+      margin-top: 0;
+      color: #006400;
+    }
+
+    .popup-content p {
+      margin: 0.6rem 0;
+      font-size: 0.95rem;
+    }
+
+    .copyable {
+      cursor: pointer;
+      padding: 0.3rem 0.6rem;
+      background: #f0f0f0;
+      border-radius: 6px;
+      display: inline-block;
+      margin-top: 0.3rem;
+      transition: background 0.2s;
+    }
+
+    .copyable:hover {
+      background: #d9fdd3;
+    }
+
+    .close-btn {
+      margin-top: 1.2rem;
+      background: linear-gradient(90deg, #ff5252, #e53935);
+    }
+
+    .close-btn:hover {
+      background: linear-gradient(90deg, #c62828, #b71c1c);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    Jenga Bundles
+  </header>
+
+  <div class="container">
+    <!-- Original Bundles -->
+    <div class="bundle">
+      <h3>24 Hours - 7GB</h3>
+      <p>High-speed internet<br>Works on all networks</p>
+      <p><strong>Ksh 75</strong></p>
+      <button class="btn" onclick="openPopup('24 Hours - 7GB', '75')">Buy</button>
+    </div>
+
+    <div class="bundle">
+      <h3>7 Days - 12GB</h3>
+      <p>High-speed internet<br>Works on all networks</p>
+      <p><strong>Ksh 85</strong></p>
+      <button class="btn" onclick="openPopup('7 Days - 12GB', '85')">Buy</button>
+    </div>
+
+    <div class="bundle">
+      <h3>14 Days - 22GB</h3>
+      <p>High-speed internet<br>Works on all networks</p>
+      <p><strong>Ksh 115</strong></p>
+      <button class="btn" onclick="openPopup('14 Days - 22GB', '115')">Buy</button>
+    </div>
+
+    <!-- New Bundles -->
+    <div class="bundle">
+      <h3>21 Days - 35GB</h3>
+      <p>High-speed internet<br>Works on all networks</p>
+      <p><strong>Ksh 125</strong></p>
+      <button class="btn" onclick="openPopup('21 Days - 35GB', '125')">Buy</button>
+    </div>
+
+    <div class="bundle">
+      <h3>30 Days - 50GB</h3>
+      <p>High-speed internet<br>Works on all networks</p>
+      <p><strong>Ksh 155</strong></p>
+      <button class="btn" onclick="openPopup('30 Days - 50GB', '155')">Buy</button>
+    </div>
+
+    <div class="bundle">
+      <h3>60 Days - Unlimited</h3>
+      <p>High-speed internet<br>Works on all networks</p>
+      <p><strong>Ksh 225</strong></p>
+      <button class="btn" onclick="openPopup('60 Days - Unlimited', '225')">Buy</button>
+    </div>
+  </div>
+
+  <!-- Popup -->
+  <div class="popup" id="popup" onclick="closeOutside(event)">
+    <div class="popup-content">
+      <h2>M-Pesa Payment Instructions</h2>
+      <p id="selected-plan"></p>
+      <p><strong>Steps to Complete Your Payment:</strong></p>
+      <p>1. Go to M-Pesa on your phone</p>
+      <p>2. Select <b>Lipa na M-Pesa</b></p>
+      <p>3. Select <b>Buy Goods and Services</b></p>
+      <p>4. Enter Till Number: <span class="copyable" onclick="copyText('123456')">123456(Tap to copy)</span></p>
+      <p>5. Enter Amount: <span class="copyable" id="amount" onclick="copyText(this.innerText)">Ksh 0</span></p>
+      <p>6. Enter your M-Pesa PIN</p>
+      <p>7. Confirm and send payment</p>
+      <p>Your package will be activated automatically after confirmation.</p>
+      <button class="btn close-btn" onclick="closePopup()">I Understand</button>
+    </div>
+  </div>
+
+  <script>
+    function openPopup(plan, price) {
+      document.getElementById("selected-plan").innerText = "You selected: " + plan + " (Ksh " + price + ")";
+      document.getElementById("amount").innerText = "Ksh " + price;
+      document.getElementById("popup").style.display = "flex";
+    }
+
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
+    }
+
+    function closeOutside(event) {
+      if (event.target.id === "popup") {
+        closePopup();
+      }
+    }
+
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Copied: " + text);
+      });
+    }
+  </script>
+
+</body>
+</html>
